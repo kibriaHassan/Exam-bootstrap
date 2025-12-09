@@ -23,3 +23,16 @@ function updateTime() {
 }
 setInterval(updateTime, 1000);
 updateTime();
+
+
+const form = document.getElementById("contactForm");
+  const userName = document.getElementById("userName");
+  const thankYouModal = new bootstrap.Modal(document.getElementById('thankYouModal'));
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent page refresh
+    const name = document.getElementById("name").value;
+    userName.textContent = name; // Insert user name in modal
+    thankYouModal.show(); // Show modal
+    form.reset(); // Reset form
+  });

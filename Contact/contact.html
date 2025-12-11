@@ -54,47 +54,88 @@
               <h4 class="mb-3 fw-bold">Send us a message</h4>
 
               <form id="contactForm">
-  <div class="mb-3">
-    <label for="name" class="form-label">Full Name</label>
-    <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
-  </div>
-  <div class="mb-3">
-    <label for="email" class="form-label">Email Address</label>
-    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
-  </div>
-  <div class="mb-3">
-    <label for="subject" class="form-label">Subject</label>
-    <input type="text" class="form-control" id="subject" placeholder="Enter subject" required>
-  </div>
-  <div class="mb-3">
-    <label for="message" class="form-label">Message</label>
-    <textarea class="form-control" id="message" rows="5" placeholder="Type your message" required></textarea>
-  </div>
-  <button type="submit" class="btn btn-primary w-100">Send Message</button>
-</form>
+                <div class="mb-3">
+                  <label for="name" class="form-label">Full Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    placeholder="Enter your full name"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email Address</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="subject" class="form-label">Subject</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="subject"
+                    placeholder="Enter subject"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="message" class="form-label">Message</label>
+                  <textarea
+                    class="form-control"
+                    id="message"
+                    rows="5"
+                    placeholder="Type your message"
+                    required
+                  ></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">
+                  Send Message
+                </button>
+              </form>
 
-<!-- Bootstrap Modal -->
-<div class="modal fade" id="thankYouModal" tabindex="-1" aria-labelledby="thankYouModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="thankYouModalLabel">Message Sent</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Thank you, <span id="userName"></span>! Your message has been sent successfully.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
+              <!-- Bootstrap Modal -->
+              <div
+                class="modal fade"
+                id="thankYouModal"
+                tabindex="-1"
+                aria-labelledby="thankYouModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="thankYouModalLabel">
+                        Message Sent
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      Thank you, <span id="userName"></span>! Your message has
+                      been sent successfully.
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="col-lg-4">
@@ -185,5 +226,43 @@
 
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="../js/script.js"></script>
+
+    <script>
+      (function () {
+        const form = document.getElementById("contactForm");
+        if (!form) return;
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const nameInput = document.getElementById("name");
+          const userName = (nameInput && nameInput.value.trim()) || "there";
+
+          // Simple popup alert
+          alert("Thank you, " + userName + "! Your message has been sent.");
+
+          // Also show the Bootstrap thank-you modal (if present)
+          const userNameSpan = document.getElementById("userName");
+          if (userNameSpan) userNameSpan.textContent = userName;
+
+          try {
+            const modalEl = document.getElementById("thankYouModal");
+            if (
+              modalEl &&
+              window.bootstrap &&
+              typeof window.bootstrap.Modal === "function"
+            ) {
+              const modal = new bootstrap.Modal(modalEl);
+              modal.show();
+            }
+          } catch (err) {
+            // ignore modal errors
+            console.warn("Modal show failed", err);
+          }
+
+          // reset form after showing messages
+          form.reset();
+        });
+      })();
+    </script>
   </body>
 </html>

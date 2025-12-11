@@ -36,3 +36,8 @@ const form = document.getElementById("contactForm");
     thankYouModal.show(); // Show modal
     form.reset(); // Reset form
   });
+
+
+
+
+  
